@@ -3,44 +3,42 @@ package proyecto1;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TemplateScanner {
 
     private String templatePath;
-    private List<String> templateLines;
+    private String templateContent;
 
     public TemplateScanner(String templatePath) {
         this.templatePath = templatePath;
-        this.templateLines = new ArrayList<>();
+        this.templateContent = "";
     }
 
     public void readTemplate() {
+        StringBuilder contentBuilder = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(templatePath));
             String line;
             while ((line = reader.readLine()) != null) {
-                templateLines.add(line);
+                contentBuilder.append(line).append("\n");
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.templateContent = contentBuilder.toString();
     }
 
     public void printTemplate() {
-        for (String line : templateLines) {
-            System.out.println(line);
-        }
+        System.out.println(templateContent);
     }
 
-    public List<String> getTemplateLines() {
-        return templateLines;
+    public String getTemplateContent() {
+        return templateContent;
     }
 
-    public void setTemplateLines(List<String> templateLines) {
-        this.templateLines = templateLines;
+    public void setTemplateContent(String templateContent) {
+        this.templateContent = templateContent;
     }
 
     public String getTemplatePath() {
